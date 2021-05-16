@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <string>
 
 using namespace std;
 
@@ -86,17 +86,55 @@ int clumsy(int N) {
 }
 
 
-int main() {
-//    vector<int> temp = {1, 2, 2};
-//    vector<vector<int>> result = subsetsWithDup(temp);
-//    for (int i = 0; i < result.size(); ++i) {
-//        for (int j = 0; j < result.at(i).size(); ++j) {
-//            cout << result.at(i).at(j);
-//        }
-//        cout<<endl;
-//    }
+int findMaximumXOR(vector<int>& nums) {
+    int result = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+        for (int j = i; j < nums.size(); ++j) {
+            int temp = nums.at(i)^nums.at(j);
+            result = result >= temp ? result : temp;
+        }
+    }
+    return result;
+}
+struct TrieNode
+{
+    array<TrieNode *, 2> data;
+    TrieNode() { data.fill(nullptr); }
+    bool contains(int bit) { return data[bit] != nullptr; }
+    TrieNode *put(int bit) { return data[bit] = new TrieNode(); }
+};
+struct TrieTree
+{
+    TrieNode *root;
+    TrieTree() { root = new TrieNode(); }
+    void add(int val)
+    {
+        auto cur = root;
+        for (int i=31; i>=0; i--)
+        {
+            int bit = (val >> i) & 1;
+            if (cur->contains(bit)) cur = cur->data[bit];
+            else cur = cur->put(bit);
+        }
+    }
+    int search(int val)
+    {
+        auto cur = root;
+        int ans = 0;
+        for (int i=31; i>=0; i--)
+        {
+            int bit = (val >> i) & 1;
+            int match = cur->contains(1 - bit) ? 1 - bit : bit;
+            ans |= (match << i);
+            cur = cur->data[match];
+        }
+        return ans;
+    }
+};
 
-    cout << clumsy(4);
+int main() {
+    vector<int> temp ={3,10,5,25,2,8};
+    cout << findMaximumXOR(temp);
 
 }
 
