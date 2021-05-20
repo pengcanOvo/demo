@@ -1,10 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-#include<queue>
+#include "demo.h"
 
-using namespace std;
 
 constexpr int func(const int n) {
     return 10 + n;
@@ -70,34 +65,33 @@ struct TreeNode {
 
 int xDepth = 0;
 int yDepth = 0;
-TreeNode* xParent;
-TreeNode* yParent;
+TreeNode *xParent;
+TreeNode *yParent;
 
 
+void dfs(TreeNode *root, int x, int y, int depth) {
 
-void dfs(TreeNode* root, int x, int y,int depth){
-
-    if (root->right != nullptr){
-        if (root->right->val == x){
+    if (root->right != nullptr) {
+        if (root->right->val == x) {
             xDepth = depth;
             xParent = root;
         }
-        if (root->right->val == y){
+        if (root->right->val == y) {
             yDepth = depth;
             yParent = root;
         }
-        dfs(root->right,x,y,depth++);
+        dfs(root->right, x, y, depth++);
     }
-    if (root->left != nullptr){
-        if (root->left->val == x){
+    if (root->left != nullptr) {
+        if (root->left->val == x) {
             xDepth = depth;
             xParent = root;
         }
-        if (root->left->val == y){
+        if (root->left->val == y) {
             yDepth = depth;
             yParent = root;
         }
-        dfs(root->left,x,y,depth++);
+        dfs(root->left, x, y, depth++);
     }
     return;
 
@@ -105,14 +99,13 @@ void dfs(TreeNode* root, int x, int y,int depth){
 
 bool isCousins(TreeNode *root, int x, int y) {
     if (root == nullptr) return false;
-    dfs(root,x,y,0);
-    if ((xParent != yParent) && (xDepth != yDepth)){
+    dfs(root, x, y, 0);
+    if ((xParent != yParent) && (xDepth != yDepth)) {
         return true;
-    } else{
+    } else {
         return false;
     }
 }
-
 
 
 int findMaximumXOR(vector<int> &nums) {
@@ -126,9 +119,57 @@ int findMaximumXOR(vector<int> &nums) {
     return result;
 }
 
+vector<int> find_shui() {
+    vector<int> nums;
+    for (int i = 100; i < 1000; ++i) {
+        int result = 0;
+        int temp = i;
+        do {
+            result += pow(temp % 10, 3);
+            temp /= 10;
+        } while (temp > 0);
+        if (result == i) nums.push_back(i);
+    }
+    return nums;
+}
+
+void test() {
+    for (int i = 1; i < 10; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            cout << i << "x" << j << "=" << i * j << "\t";
+        }
+        cout << endl;
+    }
+}
+
+void bubble_sort(int *a, int size) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size - i - 1; ++j) {
+            if (a[j] > a[j + 1]) {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < size; ++i) {
+        cout << a[i];
+    }
+}
 
 int main() {
-    cout << "456546132";
+
+    cout << "************************" << endl;
+    cout << "*******1. 添加联系人******" << endl;
+    cout << "*******2. 显示联系人******" << endl;
+    cout << "*******3. 删除联系人******" << endl;
+    cout << "*******4. 查找联系人******" << endl;
+    cout << "*******5. 修改联系人******" << endl;
+    cout << "*******6. 清空联系人******" << endl;
+    cout << "*******0. 推出通讯录******" << endl;
+    index();
+
 }
 
 

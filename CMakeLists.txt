@@ -3,4 +3,4 @@ project(demo1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(demo1 main.cpp)
+add_executable(demo1 main.cpp demo.h demo.cpp global.h)
