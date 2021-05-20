@@ -55,85 +55,75 @@ vector<vector<int>> subsetsWithDup(vector<int> &nums) {
 
 int clumsy(int N) {
     int temp[N];
-    int result=0;
+    int result = 0;
     for (int i = N; i > 0; --i) {
-        temp[N-i]=i;
+        temp[N - i] = i;
     }
     int i = 0;
-    while(i < N-1){
-        temp[i+1] = temp[i] * temp[i+1];
-        temp[i]=0;
-        i=i+4;
+    while (i < N - 1) {
+        temp[i + 1] = temp[i] * temp[i + 1];
+        temp[i] = 0;
+        i = i + 4;
     }
-    i=1;
-    while (i<N-1){
-        temp[i+1] = temp[i] / temp[i+1];
-        temp[i]=0;
-        i+=4;
+    i = 1;
+    while (i < N - 1) {
+        temp[i + 1] = temp[i] / temp[i + 1];
+        temp[i] = 0;
+        i += 4;
     }
 
     i = 1;
-    for (int j = 0; j <= N-1; j++) {
-        if (temp[j]==0) continue;
-        if (i%2 == 0 || result == 0){
-            result+=temp[j];
-        }else{
-            result-=temp[j];
+    for (int j = 0; j <= N - 1; j++) {
+        if (temp[j] == 0) continue;
+        if (i % 2 == 0 || result == 0) {
+            result += temp[j];
+        } else {
+            result -= temp[j];
         }
         i++;
     }
     return result;
 }
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
 
-int findMaximumXOR(vector<int>& nums) {
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+
+bool isCousins(TreeNode *root, int x, int y) {
+    vector<pair<TreeNode,int>> trees;
+    trees.push_back(make_pair<root,0>);
+    
+
+
+
+
+}
+
+
+
+int findMaximumXOR(vector<int> &nums) {
     int result = 0;
     for (int i = 0; i < nums.size(); ++i) {
         for (int j = i; j < nums.size(); ++j) {
-            int temp = nums.at(i)^nums.at(j);
+            int temp = nums.at(i) ^nums.at(j);
             result = result >= temp ? result : temp;
         }
     }
     return result;
 }
-struct TrieNode
-{
-    array<TrieNode *, 2> data;
-    TrieNode() { data.fill(nullptr); }
-    bool contains(int bit) { return data[bit] != nullptr; }
-    TrieNode *put(int bit) { return data[bit] = new TrieNode(); }
-};
-struct TrieTree
-{
-    TrieNode *root;
-    TrieTree() { root = new TrieNode(); }
-    void add(int val)
-    {
-        auto cur = root;
-        for (int i=31; i>=0; i--)
-        {
-            int bit = (val >> i) & 1;
-            if (cur->contains(bit)) cur = cur->data[bit];
-            else cur = cur->put(bit);
-        }
-    }
-    int search(int val)
-    {
-        auto cur = root;
-        int ans = 0;
-        for (int i=31; i>=0; i--)
-        {
-            int bit = (val >> i) & 1;
-            int match = cur->contains(1 - bit) ? 1 - bit : bit;
-            ans |= (match << i);
-            cur = cur->data[match];
-        }
-        return ans;
-    }
-};
+
 
 int main() {
-    vector<int> temp ={3,10,5,25,2,8};
+    vector<int> temp = {3, 10, 5, 25, 2, 8};
     cout << findMaximumXOR(temp);
 
 }
