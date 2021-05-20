@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include<queue>
 
 using namespace std;
 
@@ -53,37 +54,6 @@ vector<vector<int>> subsetsWithDup(vector<int> &nums) {
     return ans;
 }
 
-int clumsy(int N) {
-    int temp[N];
-    int result = 0;
-    for (int i = N; i > 0; --i) {
-        temp[N - i] = i;
-    }
-    int i = 0;
-    while (i < N - 1) {
-        temp[i + 1] = temp[i] * temp[i + 1];
-        temp[i] = 0;
-        i = i + 4;
-    }
-    i = 1;
-    while (i < N - 1) {
-        temp[i + 1] = temp[i] / temp[i + 1];
-        temp[i] = 0;
-        i += 4;
-    }
-
-    i = 1;
-    for (int j = 0; j <= N - 1; j++) {
-        if (temp[j] == 0) continue;
-        if (i % 2 == 0 || result == 0) {
-            result += temp[j];
-        } else {
-            result -= temp[j];
-        }
-        i++;
-    }
-    return result;
-}
 
 struct TreeNode {
     int val;
@@ -98,14 +68,49 @@ struct TreeNode {
 };
 
 
+int xDepth = 0;
+int yDepth = 0;
+TreeNode* xParent;
+TreeNode* yParent;
+
+
+
+void dfs(TreeNode* root, int x, int y,int depth){
+
+    if (root->right != nullptr){
+        if (root->right->val == x){
+            xDepth = depth;
+            xParent = root;
+        }
+        if (root->right->val == y){
+            yDepth = depth;
+            yParent = root;
+        }
+        dfs(root->right,x,y,depth++);
+    }
+    if (root->left != nullptr){
+        if (root->left->val == x){
+            xDepth = depth;
+            xParent = root;
+        }
+        if (root->left->val == y){
+            yDepth = depth;
+            yParent = root;
+        }
+        dfs(root->left,x,y,depth++);
+    }
+    return;
+
+}
+
 bool isCousins(TreeNode *root, int x, int y) {
-    vector<pair<TreeNode,int>> trees;
-    trees.push_back(make_pair<root,0>);
-    
-
-
-
-
+    if (root == nullptr) return false;
+    dfs(root,x,y,0);
+    if ((xParent != yParent) && (xDepth != yDepth)){
+        return true;
+    } else{
+        return false;
+    }
 }
 
 
@@ -123,9 +128,7 @@ int findMaximumXOR(vector<int> &nums) {
 
 
 int main() {
-    vector<int> temp = {3, 10, 5, 25, 2, 8};
-    cout << findMaximumXOR(temp);
-
+    cout << "456546132";
 }
 
 
