@@ -158,18 +158,92 @@ void bubble_sort(int *a, int size) {
     }
 }
 
-int main() {
-
-    cout << "************************" << endl;
-    cout << "*******1. 添加联系人******" << endl;
-    cout << "*******2. 显示联系人******" << endl;
-    cout << "*******3. 删除联系人******" << endl;
-    cout << "*******4. 查找联系人******" << endl;
-    cout << "*******5. 修改联系人******" << endl;
-    cout << "*******6. 清空联系人******" << endl;
-    cout << "*******0. 推出通讯录******" << endl;
-    index();
-
+int * func(){
+    int * p = new int(10);
+    return p;
 }
+
+void swap(int *a, int *b){
+    int * temp = a;
+    a = b;
+    b = temp;
+}
+
+void func(int &a){
+    cout<<"";
+}
+void func(const int &a){
+    cout<<"";
+}
+
+class Club{
+
+    int c_h;
+    int c_w;
+    int c_l;
+public :
+    int getMj(){
+        return ((c_h * c_l) * 2 + (c_h * c_w) * 2 + (c_l * c_w) * 2);
+    }
+    int getTj(){
+        return c_w * c_l * c_h;
+    }
+
+    int getCH() const {
+        return c_h;
+    }
+
+    void setCH(int cH) {
+        c_h = cH;
+    }
+
+    int getCW() const {
+        return c_w;
+    }
+
+    void setCW(int cW) {
+        c_w = cW;
+    }
+
+    int getCL() const {
+        return c_l;
+    }
+
+    void setCL(int cL) {
+        c_l = cL;
+    }
+};
+
+
+
+//int main() {
+//
+////    cout << "************************" << endl;
+////    cout << "*******1. 添加联系人******" << endl;
+////    cout << "*******2. 显示联系人******" << endl;
+////    cout << "*******3. 删除联系人******" << endl;
+////    cout << "*******4. 查找联系人******" << endl;
+////    cout << "*******5. 修改联系人******" << endl;
+////    cout << "*******6. 清空联系人******" << endl;
+////    cout << "*******0. 推出通讯录******" << endl;
+////    index();
+//    int * p = func();
+//
+//    cout << p;
+//    int a = 10;
+//    int b = 30;
+//    cout<< a;
+//    cout<< b;
+//    cout<<"交换后";
+//    swap(a,b);
+//    cout<< a;
+//    cout<< b;
+//
+//
+//
+//
+//
+//
+//}
 
 
